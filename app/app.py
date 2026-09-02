@@ -108,6 +108,15 @@ st.markdown(
         color: #F8FAFC !important;
     }
 
+    div[data-baseweb="select"] span,
+    div[data-baseweb="select"] input,
+    div[data-baseweb="select"] svg,
+    [data-baseweb="popover"] *,
+    [role="listbox"] * {
+        color: #FFFFFF !important;
+        fill: #FFFFFF !important;
+    }
+
     [data-baseweb="popover"], [data-baseweb="menu"], [role="listbox"] {
         background-color: #151B34 !important;
         color: #F8FAFC !important;
@@ -322,6 +331,7 @@ with tab1:
     fig_country = px.bar(country_revenue, x="TotalAmount", y="Country", orientation="h", color="Country", color_discrete_sequence=PASTEL_COLORS, template="plotly_dark", labels={"TotalAmount": "Revenue ($)"})
     fig_country.update_layout(showlegend=False, margin=dict(l=10, r=10, t=30, b=10))
     apply_dark_chart_theme(fig_country)
+    fig_country.update_yaxes(tickfont=dict(color="#FFFFFF"))
     st.plotly_chart(fig_country, use_container_width=True)
     st.caption("The United Kingdom is the dominant market; international markets offer growth potential.")
 
