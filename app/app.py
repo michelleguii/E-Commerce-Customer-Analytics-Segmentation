@@ -390,7 +390,7 @@ with tab2:
     <div style="background-color: #151B34; border-left: 4px solid #818CF8; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
         <h4 style="margin: 0 0 8px 0; color: #C4B5FD;"> What is this tool and why are we using it?</h4>
         <p style="margin: 0; font-size: 0.95rem; color: #E2E8F0;">
-            Imagine a new customer visits your store. Instead of guessing how valuable they are, this tool uses your 
+            Imagine a new customer visits your store. Instead of guessing how valuable they are, this tool uses 
             <b>Machine Learning Model</b> to instantly organize them into a group based on 3 simple questions:
             <br>1. <b>Recency:</b> How many days ago was their last purchase?
             <br>2. <b>Frequency:</b> How many total times have they bought from us?
