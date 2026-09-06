@@ -28,7 +28,7 @@ def apply_dark_chart_theme(fig):
         paper_bgcolor="#151B34",
         plot_bgcolor="#151B34",
         font=dict(color="#F8FAFC", size=9),
-        legend=dict(font=dict(color="#F8FAFC", size=9), margin=dict(l=0, r=0, t=0, b=0)),
+        legend=dict(font=dict(color="#F8FAFC", size=9)),
         margin=dict(l=5, r=5, t=18, b=5),
         autosize=True,
     )
