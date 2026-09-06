@@ -27,11 +27,22 @@ def apply_dark_chart_theme(fig):
   fig.update_layout(
       paper_bgcolor="#151B34",
       plot_bgcolor="#151B34",
-      font=dict(color="#F8FAFC"),
+      font=dict(color="#F8FAFC", size=11),
       legend=dict(font=dict(color="#F8FAFC")),
+      margin=dict(l=10, r=10, t=25, b=10),
   )
-  fig.update_xaxes(gridcolor="#2B3560", linecolor="#64748B", tickfont=dict(color="#F8FAFC"), title_font=dict(color="#F8FAFC"))
-  fig.update_yaxes(gridcolor="#2B3560", linecolor="#64748B", tickfont=dict(color="#F8FAFC"), title_font=dict(color="#F8FAFC"))
+  fig.update_xaxes(
+      gridcolor="#2B3560", linecolor="#64748B",
+      tickfont=dict(color="#F8FAFC", size=10),
+      title_font=dict(color="#F8FAFC", size=11),
+      title_standoff=4,
+  )
+  fig.update_yaxes(
+      gridcolor="#2B3560", linecolor="#64748B",
+      tickfont=dict(color="#F8FAFC", size=10),
+      title_font=dict(color="#F8FAFC", size=11),
+      title_standoff=4,
+  )
   return fig
 
 st.markdown(
@@ -48,8 +59,18 @@ st.markdown(
         background-color: #080C18 !important;
     }
 
-    [data-testid="stMainBlockContainer"] {
+    [data-testid="stMainBlockContainer"], .block-container {
         background-color: #0B1020;
+        max-width: none !important;
+        padding: 1.25rem 1.5rem 1rem !important;
+    }
+
+    [data-testid="stVerticalBlock"] > div {
+        margin-bottom: 0.35rem;
+    }
+
+    [data-testid="stHorizontalBlock"] {
+        gap: 0.65rem;
     }
 
     .stApp p, .stApp label, .stApp span, .stApp h1, .stApp h2, .stApp h3,
@@ -61,39 +82,108 @@ st.markdown(
     .header-container {
         background: #111827;
         border: 1px solid #312E81;
-        padding: 24px;
-        border-radius: 16px;
+        padding: 16px 20px;
+        min-height: 92px;
+        border-radius: 12px;
         color: #E2E8F0;
-        margin-bottom: 25px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.35);
+        margin-bottom: 10px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
     
     .header-container h1 {
         margin: 0;
-        font-size: 2.2rem;
+        font-size: 1.7rem;
         font-weight: 700;
         color: #F8FAFC;
     }
     
     .header-container p {
-        margin-top: 5px;
-        font-size: 1.05rem;
+        margin: 4px 0 0;
+        font-size: 0.9rem;
         opacity: 0.85;
     }
 
     /* Custom Metric Cards */
     div[data-testid="stMetric"] {
         background-color: #151B34;
-        border-radius: 12px;
-        padding: 16px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        min-height: 94px;
+        border-radius: 11px;
+        padding: 11px 13px;
+        box-sizing: border-box;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.22);
         border: 1px solid #2B3560;
+    }
+
+    div[data-testid="stMetricLabel"] {
+        font-size: 0.74rem;
+        line-height: 1.1;
+        color: #AAB7D1 !important;
+    }
+
+    div[data-testid="stMetricValue"] {
+        font-size: 1.35rem;
+        line-height: 1.15;
+    }
+
+    .section-label {
+        margin: 2px 0 5px;
+        color: #C7D2FE;
+        font-size: 0.88rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+    }
+
+    .card-title {
+        margin: 0 0 2px;
+        color: #F8FAFC;
+        font-size: 0.88rem;
+        font-weight: 650;
+        letter-spacing: 0.01em;
+    }
+
+    div[data-testid="stVerticalBlockBorderWrapper"] {
+        background: #151B34;
+        border: 1px solid #2B3560 !important;
+        border-radius: 12px;
+        box-shadow: 0 2px 7px rgba(0,0,0,0.18);
+    }
+
+    div[data-testid="stVerticalBlockBorderWrapper"] > div {
+        padding: 0.55rem 0.65rem !important;
+    }
+
+    div[data-testid="stPlotlyChart"] {
+        margin-top: -0.25rem;
+    }
+
+    div[data-testid="stCaptionContainer"] {
+        font-size: 0.71rem;
+        line-height: 1.2;
+        color: #AAB7D1;
     }
     
     /* Sidebar Styling */
     section[data-testid="stSidebar"] {
         background-color: #0F1530;
         border-right: 1px solid #26325B;
+        min-width: 235px;
+        max-width: 255px;
+    }
+
+    section[data-testid="stSidebar"] [data-testid="stSidebarContent"] {
+        padding: 0.4rem 0.65rem;
+    }
+
+    section[data-testid="stSidebar"] h3 {
+        font-size: 0.95rem;
+        margin-bottom: 0.2rem;
+    }
+
+    section[data-testid="stSidebar"] .stSelectbox label {
+        font-size: 0.8rem;
     }
 
     div[data-baseweb="select"] > div,
@@ -151,8 +241,8 @@ st.markdown(
     /* Form & Container Styling */
     .stForm, div[data-testid="stForm"] {
         background-color: #151B34;
-        padding: 20px;
-        border-radius: 16px;
+        padding: 14px;
+        border-radius: 12px;
         border: 1px solid #2B3560;
         box-shadow: 0 2px 8px rgba(0,0,0,0.28);
     }
@@ -164,6 +254,30 @@ st.markdown(
 
     button[data-baseweb="tab"] {
         color: #F8FAFC !important;
+        font-size: 0.86rem;
+        padding: 0.45rem 0.8rem;
+    }
+
+    button[data-baseweb="tab"] p { margin: 0; }
+
+    [data-testid="stTabs"] [data-testid="stTabsContent"] {
+        padding-top: 0.45rem;
+    }
+
+    div[data-testid="stDataFrame"] {
+        border: 1px solid #2B3560;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    @media (max-width: 900px) {
+        [data-testid="stMainBlockContainer"], .block-container {
+            padding: 0.85rem 0.8rem !important;
+        }
+
+        .header-container { min-height: auto; padding: 14px 16px; }
+        .header-container h1 { font-size: 1.4rem; }
+        div[data-testid="stMetric"] { min-height: 82px; }
     }
 </style>
 """,
@@ -292,7 +406,7 @@ st.sidebar.info("Tip: Use the prediction tool at the bottom of the page to class
 tab1, tab2 = st.tabs(["Overview & Visualizations", "Real-time Predictor"])
 
 with tab1:
-  st.subheader("Performance Summary")
+  st.markdown('<div class="section-label">PERFORMANCE SUMMARY</div>', unsafe_allow_html=True)
   total_revenue = sales_df["TotalAmount"].sum()
   total_orders = sales_df["InvoiceNo"].nunique()
   average_order_value = total_revenue / total_orders if total_orders else 0
@@ -302,92 +416,88 @@ with tab1:
   registered_share = registered_orders / total_orders if total_orders else 0
   guest_share = guest_orders / total_orders if total_orders else 0
 
-  k1, k2, k3, k4, k5 = st.columns(5)
+  k1, k2, k3, k4, k5 = st.columns(5, gap="small")
   k1.metric("Total Revenue", f"${total_revenue:,.2f}")
   k2.metric("Total Orders", f"{total_orders:,}")
   k3.metric("Average Order Value", f"${average_order_value:,.2f}")
   k4.metric("Total Units Sold", f"{total_units:,}")
   k5.metric("Registered vs. Guest", f"{registered_share:.1%} / {guest_share:.1%}")
   st.caption("Sales metrics reflect the selected country. Customer segmentation uses registered customers only.")
-  st.markdown("---")
 
-  col_left, col_right = st.columns(2)
+  col_left, col_right = st.columns([3, 2], gap="small")
   with col_left:
-    st.subheader("Monthly Revenue Trend")
-    monthly_revenue = (
-        sales_df.assign(Month=sales_df["InvoiceDate"].dt.to_period("M").dt.to_timestamp())
-        .groupby("Month", as_index=False)["TotalAmount"].sum()
-    )
-    fig_monthly = px.line(monthly_revenue, x="Month", y="TotalAmount", markers=True, template="plotly_dark", labels={"TotalAmount": "Revenue ($)"})
-    fig_monthly.update_traces(line_color=PASTEL_COLORS[1])
-    fig_monthly.update_layout(margin=dict(l=10, r=10, t=30, b=10))
-    apply_dark_chart_theme(fig_monthly)
-    st.plotly_chart(fig_monthly, use_container_width=True)
-    st.caption("Revenue rises sharply in late 2011, indicating strong Q4 seasonality.")
+    with st.container(border=True):
+      st.markdown('<div class="card-title">Monthly Revenue Trend</div>', unsafe_allow_html=True)
+      monthly_revenue = (
+          sales_df.assign(Month=sales_df["InvoiceDate"].dt.to_period("M").dt.to_timestamp())
+          .groupby("Month", as_index=False)["TotalAmount"].sum()
+      )
+      fig_monthly = px.line(monthly_revenue, x="Month", y="TotalAmount", markers=True, template="plotly_dark", labels={"TotalAmount": "Revenue ($)"})
+      fig_monthly.update_traces(line_color=PASTEL_COLORS[1], marker=dict(size=5))
+      fig_monthly.update_layout(height=255)
+      apply_dark_chart_theme(fig_monthly)
+      st.plotly_chart(fig_monthly, use_container_width=True)
+      st.caption("Revenue rises sharply in late 2011, indicating strong Q4 seasonality.")
 
   with col_right:
-    st.subheader("Revenue by Country")
-    country_revenue = transactions.groupby("Country", as_index=False)["TotalAmount"].sum().nlargest(5, "TotalAmount").sort_values("TotalAmount")
-    fig_country = px.bar(country_revenue, x="TotalAmount", y="Country", orientation="h", color="Country", color_discrete_sequence=PASTEL_COLORS, template="plotly_dark", labels={"TotalAmount": "Revenue ($)"})
-    fig_country.update_layout(showlegend=False, margin=dict(l=10, r=10, t=30, b=10))
-    apply_dark_chart_theme(fig_country)
-    fig_country.update_yaxes(tickfont=dict(color="#FFFFFF"))
-    st.plotly_chart(fig_country, use_container_width=True)
-    st.caption("The United Kingdom is the dominant market; international markets offer growth potential.")
+    with st.container(border=True):
+      st.markdown('<div class="card-title">Revenue by Country</div>', unsafe_allow_html=True)
+      country_revenue = transactions.groupby("Country", as_index=False)["TotalAmount"].sum().nlargest(5, "TotalAmount").sort_values("TotalAmount")
+      fig_country = px.bar(country_revenue, x="TotalAmount", y="Country", orientation="h", color="Country", color_discrete_sequence=PASTEL_COLORS, template="plotly_dark", labels={"TotalAmount": "Revenue ($)"})
+      fig_country.update_layout(showlegend=False, height=255)
+      apply_dark_chart_theme(fig_country)
+      fig_country.update_yaxes(tickfont=dict(color="#FFFFFF", size=10))
+      st.plotly_chart(fig_country, use_container_width=True)
+      st.caption("The United Kingdom is the dominant market; international markets offer growth potential.")
 
-  col_left, col_right = st.columns(2)
+  col_left, col_right = st.columns([3, 2], gap="small")
   with col_left:
-    st.subheader("Top 10 Products by Revenue")
-    top_products = sales_df.groupby("Description", as_index=False)["TotalAmount"].sum().nlargest(10, "TotalAmount").sort_values("TotalAmount")
-    fig_products = px.bar(top_products, x="TotalAmount", y="Description", orientation="h", template="plotly_dark", color_discrete_sequence=[PASTEL_COLORS[0]], labels={"TotalAmount": "Revenue ($)"})
-    fig_products.update_layout(margin=dict(l=10, r=10, t=30, b=10))
-    apply_dark_chart_theme(fig_products)
-    st.plotly_chart(fig_products, use_container_width=True)
+    with st.container(border=True):
+      st.markdown('<div class="card-title">Top 10 Products by Revenue</div>', unsafe_allow_html=True)
+      top_products = sales_df.groupby("Description", as_index=False)["TotalAmount"].sum().nlargest(10, "TotalAmount").sort_values("TotalAmount")
+      fig_products = px.bar(top_products, x="TotalAmount", y="Description", orientation="h", template="plotly_dark", color_discrete_sequence=[PASTEL_COLORS[0]], labels={"TotalAmount": "Revenue ($)"})
+      fig_products.update_layout(height=270, margin=dict(l=10, r=10, t=25, b=10))
+      apply_dark_chart_theme(fig_products)
+      st.plotly_chart(fig_products, use_container_width=True)
 
   with col_right:
-    st.subheader("Revenue by Customer Segment")
-    segment_summary = df.groupby("Segment_Name", as_index=False).agg(Customers=("CustomerID", "count"), Revenue=("Monetary", "sum"), Avg_Frequency=("Frequency", "mean")).sort_values("Revenue", ascending=False)
-    fig_segment = px.bar(segment_summary, x="Segment_Name", y="Revenue", color="Segment_Name", color_discrete_sequence=PASTEL_COLORS, template="plotly_dark", labels={"Revenue": "Revenue ($)", "Segment_Name": "Segment"})
-    fig_segment.update_layout(showlegend=False, margin=dict(l=10, r=10, t=30, b=10))
-    apply_dark_chart_theme(fig_segment)
-    st.plotly_chart(fig_segment, use_container_width=True)
-    segment_table = (
-        segment_summary.style
-        .format({"Revenue": "${:,.2f}", "Avg_Frequency": "{:.2f}"})
-        .set_properties(**{"background-color": "#151B34", "color": "#F8FAFC"})
-        .set_table_styles(
-            [
-                {
-                    "selector": "th",
-                    "props": [
-                        ("background-color", "#312E81"),
-                        ("color", "#FFFFFF"),
-                        ("font-weight", "600"),
-                    ],
-                }
-            ]
-        )
-    )
-    st.dataframe(segment_table, hide_index=True, use_container_width=True)
+    with st.container(border=True):
+      st.markdown('<div class="card-title">Revenue by Customer Segment</div>', unsafe_allow_html=True)
+      segment_summary = df.groupby("Segment_Name", as_index=False).agg(Customers=("CustomerID", "count"), Revenue=("Monetary", "sum"), Avg_Frequency=("Frequency", "mean")).sort_values("Revenue", ascending=False)
+      fig_segment = px.bar(segment_summary, x="Segment_Name", y="Revenue", color="Segment_Name", color_discrete_sequence=PASTEL_COLORS, template="plotly_dark", labels={"Revenue": "Revenue ($)", "Segment_Name": "Segment"})
+      fig_segment.update_layout(showlegend=False, height=210)
+      apply_dark_chart_theme(fig_segment)
+      st.plotly_chart(fig_segment, use_container_width=True)
+      segment_table = (
+          segment_summary.style
+          .format({"Revenue": "${:,.2f}", "Avg_Frequency": "{:.2f}"})
+          .set_properties(**{"background-color": "#151B34", "color": "#F8FAFC"})
+          .set_table_styles(
+              [{"selector": "th", "props": [("background-color", "#312E81"), ("color", "#FFFFFF"), ("font-weight", "600")]}]
+          )
+      )
+      st.dataframe(segment_table, hide_index=True, use_container_width=True, height=145)
 
-  col_left, col_right = st.columns(2)
+  col_left, col_right = st.columns([3, 2], gap="small")
   with col_left:
-    st.subheader("Customer Recency / Retention")
-    recency_order = ["Active (0-30d)", "Warm (31-90d)", "Cold (91-180d)", "At Risk (181-365d)", "Lapsed (365d+)"]
-    recency_summary = df["Recency_Segment"].value_counts().reindex(recency_order, fill_value=0).rename_axis("Recency Segment").reset_index(name="Customers")
-    fig_recency = px.bar(recency_summary, x="Recency Segment", y="Customers", color="Recency Segment", color_discrete_sequence=PASTEL_COLORS, template="plotly_dark")
-    fig_recency.update_layout(showlegend=False, margin=dict(l=10, r=10, t=30, b=10))
-    apply_dark_chart_theme(fig_recency)
-    st.plotly_chart(fig_recency, use_container_width=True)
+    with st.container(border=True):
+      st.markdown('<div class="card-title">Customer Recency / Retention</div>', unsafe_allow_html=True)
+      recency_order = ["Active (0-30d)", "Warm (31-90d)", "Cold (91-180d)", "At Risk (181-365d)", "Lapsed (365d+)"]
+      recency_summary = df["Recency_Segment"].value_counts().reindex(recency_order, fill_value=0).rename_axis("Recency Segment").reset_index(name="Customers")
+      fig_recency = px.bar(recency_summary, x="Recency Segment", y="Customers", color="Recency Segment", color_discrete_sequence=PASTEL_COLORS, template="plotly_dark")
+      fig_recency.update_layout(showlegend=False, height=240)
+      apply_dark_chart_theme(fig_recency)
+      st.plotly_chart(fig_recency, use_container_width=True)
 
   with col_right:
-    st.subheader("Guest vs. Registered Orders")
-    order_type = pd.DataFrame({"Customer Type": ["Registered", "Guest"], "Orders": [registered_orders, guest_orders]})
-    fig_guest = px.pie(order_type, names="Customer Type", values="Orders", hole=0.55, color_discrete_sequence=[PASTEL_COLORS[0], PASTEL_COLORS[4]])
-    fig_guest.update_layout(margin=dict(l=10, r=10, t=30, b=10))
-    apply_dark_chart_theme(fig_guest)
-    st.plotly_chart(fig_guest, use_container_width=True)
-    st.caption("Converting guest purchasers into registered customers supports stronger repeat-purchase analysis.")
+    with st.container(border=True):
+      st.markdown('<div class="card-title">Guest vs. Registered Orders</div>', unsafe_allow_html=True)
+      order_type = pd.DataFrame({"Customer Type": ["Registered", "Guest"], "Orders": [registered_orders, guest_orders]})
+      fig_guest = px.pie(order_type, names="Customer Type", values="Orders", hole=0.55, color_discrete_sequence=[PASTEL_COLORS[0], PASTEL_COLORS[4]])
+      fig_guest.update_layout(height=225, legend=dict(orientation="h", y=-0.08, x=0.5, xanchor="center"))
+      apply_dark_chart_theme(fig_guest)
+      st.plotly_chart(fig_guest, use_container_width=True)
+      st.caption("Converting guest purchasers into registered customers supports stronger repeat-purchase analysis.")
 with tab2:
   # -------------------------------------------------------------------------
   # SECTION 5: REAL-TIME CUSTOMER PREDICTOR (WITH PLAIN-ENGLISH NOTES)
