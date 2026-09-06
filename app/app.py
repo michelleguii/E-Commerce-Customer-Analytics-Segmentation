@@ -12,7 +12,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# 2. MODERN PASTEL STYLING & STRICT VIEWPORT LOCKING
+# 2. STYLING & VIEWPORT LOCKING
 PASTEL_COLORS = [
     "#38BDF8",  # Sky Blue
     "#818CF8",  # Indigo Accent
@@ -23,13 +23,13 @@ PASTEL_COLORS = [
 
 
 def apply_dark_chart_theme(fig):
-    """Consistent dark background with ultra-compact padding for tight fitting."""
+    """Consistent dark background with ultra-compact padding."""
     fig.update_layout(
         paper_bgcolor="#151B34",
         plot_bgcolor="#151B34",
         font=dict(color="#F8FAFC", size=9),
-        legend=dict(font=dict(color="#F8FAFC", size=9)),
-        margin=dict(l=5, r=5, t=20, b=5),
+        legend=dict(font=dict(color="#F8FAFC", size=8)),
+        margin=dict(l=5, r=5, t=15, b=5),
         autosize=True,
     )
     fig.update_xaxes(
@@ -37,14 +37,14 @@ def apply_dark_chart_theme(fig):
         linecolor="#475569",
         tickfont=dict(color="#CBD5E1", size=8),
         title_font=dict(color="#F8FAFC", size=8),
-        title_standoff=2,
+        title_standoff=1,
     )
     fig.update_yaxes(
         gridcolor="#232D52",
         linecolor="#475569",
         tickfont=dict(color="#CBD5E1", size=8),
         title_font=dict(color="#F8FAFC", size=8),
-        title_standoff=2,
+        title_standoff=1,
     )
     return fig
 
@@ -52,84 +52,71 @@ def apply_dark_chart_theme(fig):
 st.markdown(
     """
 <style>
-    /* Lock Viewport to 100vh and Disable Global Scrolling */
-    html, body, [data-testid="stAppViewContainer"], .main {
+    /* Prevent root container overflow */
+    html, body, [data-testid="stAppViewContainer"] {
         height: 100vh !important;
-        max-height: 100vh !important;
         overflow: hidden !important;
     }
 
     .stApp {
         background-color: #0B1020;
         color: #F8FAFC;
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        height: 100vh !important;
-        overflow: hidden !important;
     }
 
-    [data-testid="stHeader"], [data-testid="stToolbar"], .stAppHeader {
-        background-color: #080C18 !important;
-        height: 2rem !important;
+    /* Reduce Streamlit default top/bottom padding */
+    [data-testid="stHeader"] {
+        display: none !important;
     }
 
     [data-testid="stMainBlockContainer"], .block-container {
-        background-color: #0B1020;
-        max-width: none !important;
-        padding: 0.2rem 0.8rem !important;
-        height: calc(100vh - 2rem) !important;
-        overflow: hidden !important;
+        padding-top: 0.5rem !important;
+        padding-bottom: 0rem !important;
+        padding-left: 0.8rem !important;
+        padding-right: 0.8rem !important;
+        max-width: 100% !important;
     }
 
-    [data-testid="stVerticalBlock"] {
-        gap: 0.2rem !important;
+    /* Compress layout block gaps */
+    div[data-testid="stVerticalBlock"] > div {
+        margin-bottom: -0.25rem !important;
     }
 
-    [data-testid="stHorizontalBlock"] {
-        gap: 0.4rem !important;
-    }
-
-    /* Ultra-Compact Header Banner */
+    /* Compact Header Banner */
     .header-container {
         background: #111827;
         border: 1px solid #232D52;
         padding: 4px 12px;
         border-radius: 6px;
-        color: #E2E8F0;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 40px;
-        margin-bottom: 4px;
+        height: 36px;
+        margin-bottom: 6px;
     }
 
     .header-title-box h1 {
         margin: 0;
-        font-size: 1rem;
+        font-size: 0.95rem;
         font-weight: 700;
         color: #F8FAFC;
+        line-height: 1;
     }
 
-    .header-title-box p {
-        margin: 0;
-        font-size: 0.65rem;
-        color: #94A3B8;
-    }
-
-    /* Single-Line Compact KPI Cards */
+    /* KPI Cards */
     .kpi-card {
         background-color: #151B34;
         border-radius: 6px;
         padding: 4px 8px;
         border: 1px solid #232D52;
         border-top: 2px solid #818CF8;
-        height: 44px;
+        height: 42px;
         display: flex;
         flex-direction: column;
         justify-content: center;
     }
 
     .kpi-label {
-        font-size: 0.58rem;
+        font-size: 0.55rem;
         font-weight: 700;
         color: #94A3B8;
         letter-spacing: 0.03em;
@@ -137,20 +124,20 @@ st.markdown(
     }
 
     .kpi-value {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         line-height: 1;
         font-weight: 800;
         color: #FFFFFF;
-        margin-top: 1px;
     }
 
     .card-title {
         margin: 0 0 2px 0;
         color: #F8FAFC;
-        font-size: 0.72rem;
+        font-size: 0.7rem;
         font-weight: 700;
     }
 
+    /* Streamlit Container Borders */
     div[data-testid="stVerticalBlockBorderWrapper"] {
         background: #151B34;
         border: 1px solid #232D52 !important;
@@ -158,33 +145,22 @@ st.markdown(
     }
 
     div[data-testid="stVerticalBlockBorderWrapper"] > div {
-        padding: 0.25rem 0.4rem !important;
+        padding: 0.2rem 0.4rem !important;
     }
 
-    /* Tabs Styling */
+    /* Streamlit Tabs Fix */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 8px;
-        height: 28px;
+        gap: 4px;
+        height: 24px;
     }
 
     .stTabs [data-baseweb="tab"] {
-        height: 28px;
-        padding: 0 10px;
-        font-size: 0.75rem;
+        height: 24px;
+        padding: 0 8px;
+        font-size: 0.7rem;
     }
 
-    /* Table styling */
-    div[data-testid="stDataFrame"] {
-        border: 1px solid #232D52;
-        border-radius: 4px;
-    }
-
-    /* Native Streamlit Table Font Fix */
-    div[data-testid="stDataFrame"] * {
-        font-size: 10px !important;
-    }
-
-    /* Sidebar Customization */
+    /* Sidebar Styling */
     section[data-testid="stSidebar"] {
         background-color: #0F1530;
         border-right: 1px solid #232D52;
@@ -200,7 +176,6 @@ st.markdown(
     <div class="header-container">
         <div class="header-title-box">
             <h1>Customer Analytics & Segmentation</h1>
-            <p>Explore customer behavior clusters and analyze key business metrics.</p>
         </div>
     </div>
 """,
@@ -324,13 +299,10 @@ with tab1:
     registered_orders = sales_df.loc[
         ~sales_df["CustomerID"].str.startswith("guest_"), "InvoiceNo"
     ].nunique()
-    guest_orders = sales_df.loc[
-        sales_df["CustomerID"].str.startswith("guest_"), "InvoiceNo"
-    ].nunique()
     registered_share = (
         registered_orders / total_orders if total_orders else 0
     )
-    guest_share = guest_orders / total_orders if total_orders else 0
+    guest_share = 1 - registered_share
 
     # KPI Row
     k1, k2, k3, k4, k5 = st.columns(5, gap="small")
@@ -360,7 +332,7 @@ with tab1:
             unsafe_allow_html=True,
         )
 
-    # Balanced Grid Layout - Strictly Fits Height
+    # Main Grid with reduced heights to fit inside single viewport
     col1, col2, col3 = st.columns([1, 1.2, 1], gap="small")
 
     with col1:
@@ -384,7 +356,7 @@ with tab1:
             fig_monthly.update_traces(
                 line_color=PASTEL_COLORS[0], marker=dict(size=3)
             )
-            fig_monthly.update_layout(height=170, hovermode="x unified")
+            fig_monthly.update_layout(height=140, hovermode="x unified")
             apply_dark_chart_theme(fig_monthly)
             st.plotly_chart(
                 fig_monthly, use_container_width=True, config={"displayModeBar": False}
@@ -410,7 +382,7 @@ with tab1:
                 color_discrete_sequence=PASTEL_COLORS,
                 template="plotly_dark",
             )
-            fig_country.update_layout(showlegend=False, height=170, bargap=0.2)
+            fig_country.update_layout(showlegend=False, height=140, bargap=0.2)
             apply_dark_chart_theme(fig_country)
             st.plotly_chart(
                 fig_country, use_container_width=True, config={"displayModeBar": False}
@@ -430,10 +402,10 @@ with tab1:
             )
             top_products["DisplayDescription"] = (
                 top_products["Description"]
-                .str.slice(0, 20)
+                .str.slice(0, 18)
                 .where(
-                    top_products["Description"].str.len() <= 20,
-                    top_products["Description"].str.slice(0, 17) + "...",
+                    top_products["Description"].str.len() <= 18,
+                    top_products["Description"].str.slice(0, 15) + "...",
                 )
             )
             fig_products = px.bar(
@@ -445,7 +417,7 @@ with tab1:
                 color_discrete_sequence=[PASTEL_COLORS[1]],
             )
             fig_products.update_layout(
-                height=370, margin=dict(l=5, r=5, t=10, b=5)
+                height=310, margin=dict(l=5, r=5, t=10, b=5)
             )
             apply_dark_chart_theme(fig_products)
             fig_products.update_yaxes(title_text="", tickfont=dict(size=8))
@@ -469,7 +441,6 @@ with tab1:
                 .sort_values("Revenue", ascending=False)
             )
 
-            # Formatting numbers directly in pandas before passing to DataFrame
             segment_summary["Revenue"] = segment_summary["Revenue"].map(
                 "${:,.0f}".format
             )
@@ -477,11 +448,12 @@ with tab1:
                 "{:.1f}".format
             )
 
+            # Fixed height for table element
             st.dataframe(
                 segment_summary,
                 hide_index=True,
                 use_container_width=True,
-                height=130,
+                height=110,
             )
 
         with st.container(border=True):
@@ -511,7 +483,7 @@ with tab1:
                 color_discrete_sequence=PASTEL_COLORS,
                 template="plotly_dark",
             )
-            fig_recency.update_layout(showlegend=False, height=210, bargap=0.2)
+            fig_recency.update_layout(showlegend=False, height=170, bargap=0.2)
             apply_dark_chart_theme(fig_recency)
             fig_recency.update_xaxes(title_text="", tickfont=dict(size=7))
             fig_recency.update_yaxes(title_text="")
